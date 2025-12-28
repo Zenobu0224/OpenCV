@@ -35,12 +35,15 @@ class HandTracker():
         landmark_list = []
 
         if self.results.multi_hand_landmarks:
-            for hand_landmarks in self.results.multi_hand_landmarks:
-                for id, landmark in enumerate(hand_landmarks.landmark):
-                    (h, w, c) = imgs.shape
+            for hand_landmarks, handedness in zip(self.results.multi_hand_landmarks, self.results.multi_handedness):
+                label = handedness.classification[0].label
 
-                    cx, cy = int(landmark.x*w), int(landmark.y*h)
+                if label == "Left":
+                    for id, landmark in enumerate(hand_landmarks.landmark):
+                        (h, w, _) = imgs.shape
 
-                    landmark_list.append([id, cx, cy])
+                        cx, cy = int(landmark.x*w), int(landmark.y*h)
+
+                        landmark_list.append([id, cx, cy])
 
         return landmark_list
