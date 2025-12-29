@@ -1,5 +1,6 @@
 import cv2 as cv
 import HandTrack as ht
+import numpy as np
 import time 
 
 
@@ -24,10 +25,24 @@ while True:
         x2, y2 = landmark_position[4][1], landmark_position[4][2]
         cx, cy = int(x1 + x2) // 2, int(y1 + y2) // 2
         
-        cv.circle(imgs, (x1, y1), 8, (0, 255, 0), -1)
-        cv.circle(imgs, (x2, y2), 8, (0, 255, 0), -1)
-        cv.line(imgs, (x1, y1), (x2, y2), (0, 255, 0), 3)
-        cv.circle(imgs, (cx, cy), 8, (0, 255, 0), -1)
+        cv.circle(imgs, (x1, y1), 8, (250, 0, 0), -1)
+        cv.circle(imgs, (x2, y2), 8, (250, 0, 0), -1)
+        cv.line(imgs, (x1, y1), (x2, y2), (250, 0, 0), 3)
+        cv.circle(imgs, (cx, cy), 8, (250, 0, 0), -1)
+
+        length = np.hypot(x2-x1, y2-y1)
+
+        if length >= 210:
+            cv.circle(imgs, (x1, y1), 8, (0, 250, 0), -1)
+            cv.circle(imgs, (x2, y2), 8, (0, 250, 0), -1)
+            cv.line(imgs, (x1, y1), (x2, y2), (0, 250, 0), 3)
+            cv.circle(imgs, (cx, cy), 8, (0, 250, 0), -1)
+
+        elif length <= 35:
+            cv.circle(imgs, (x1, y1), 8, (0, 0, 250), -1)
+            cv.circle(imgs, (x2, y2), 8, (0, 0, 250), -1)
+            cv.line(imgs, (x1, y1), (x2, y2), (0, 0, 250), 3)
+            cv.circle(imgs, (cx, cy), 8, (0, 0, 250), -1)
 
 
     c_time = time.time()
