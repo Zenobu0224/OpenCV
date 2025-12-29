@@ -48,6 +48,10 @@ while True:
             cv.line(imgs, (x1, y1), (x2, y2), (0, 0, 250), 3)
             cv.circle(imgs, (cx, cy), 8, (0, 0, 250), -1)
 
+        
+        volume = np.interp(length, [35, 210], [-66, 0])
+
+        speaker_vol.SetMasterVolumeLevel(volume, None)
     
 
     c_time = time.time()
