@@ -14,6 +14,8 @@ speaker_vol = device.EndpointVolume
 p_time = 0
 c_time = 0
 
+vol_bar = 400
+
 while True:
     successful, imgs = capture.read()
 
@@ -36,7 +38,7 @@ while True:
 
         length = np.hypot(x2-x1, y2-y1)
 
-        if length >= 210:
+        if length >= 210:      
             cv.circle(imgs, (x1, y1), 8, (0, 250, 0), -1)
             cv.circle(imgs, (x2, y2), 8, (0, 250, 0), -1)
             cv.line(imgs, (x1, y1), (x2, y2), (0, 250, 0), 3)
@@ -50,13 +52,16 @@ while True:
 
         
         volume = np.interp(length, [35, 210], [-66, 0])
+        vol_bar = np.interp(length, [35, 210], [400, 100])
 
         speaker_vol.SetMasterVolumeLevel(volume, None)
-    
-
+        
     c_time = time.time()
     fps = 1 / (c_time - p_time)
     p_time = c_time
+
+    cv.rectangle(imgs, (30, 400), (70, 100), (0, 250, 0), 3)
+    cv.rectangle(imgs, (30, 400), (70, int(vol_bar)), (0, 250, 0), -1)
 
     cv.putText(imgs, f'FPS : {int(fps)}', (30, 50), cv.FONT_HERSHEY_PLAIN, 2, (250, 0, 0), 3)
     cv.imshow('Live Video', imgs)
