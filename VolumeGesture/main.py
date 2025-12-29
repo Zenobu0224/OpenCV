@@ -15,6 +15,7 @@ p_time = 0
 c_time = 0
 
 vol_bar = 400
+vol_percent = 0
 
 while True:
     successful, imgs = capture.read()
@@ -53,15 +54,17 @@ while True:
         
         volume = np.interp(length, [35, 210], [-66, 0])
         vol_bar = np.interp(length, [35, 210], [400, 100])
+        vol_percent = np.interp(length, [35, 210], [0, 100])
 
         speaker_vol.SetMasterVolumeLevel(volume, None)
-        
+
     c_time = time.time()
     fps = 1 / (c_time - p_time)
     p_time = c_time
 
     cv.rectangle(imgs, (30, 400), (70, 100), (0, 250, 0), 3)
     cv.rectangle(imgs, (30, 400), (70, int(vol_bar)), (0, 250, 0), -1)
+    cv.putText(imgs, f'{int(vol_percent)} %', (30, 450), cv.FONT_HERSHEY_PLAIN, 2, (250, 0, 0), 2)
 
     cv.putText(imgs, f'FPS : {int(fps)}', (30, 50), cv.FONT_HERSHEY_PLAIN, 2, (250, 0, 0), 3)
     cv.imshow('Live Video', imgs)
