@@ -69,9 +69,7 @@ python main.py
 
 ---
 
-### Pro-Tip for your GitHub:
 
-Since you mentioned the brightness is "to be implemented," you can leave a comment in your `main.py` code like this:
 
 ```python
 # TODO: Implement Left Hand detection for Brightness
