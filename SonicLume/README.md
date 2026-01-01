@@ -1,6 +1,6 @@
 # VoluGesture: AI-Powered Hand Volume Control
 
-**VoluGesture** is a computer vision tool that allows you to control your system's master volume using hand gestures. By measuring the distance between your thumb and index finger, you can "slide" the volume up and down in real-time.
+**SonicLume** is a computer vision tool that allows you to control your system's master volume using hand gestures. By measuring the distance between your thumb and index finger, you can "slide" the volume up and down in real-time.
 
 ## 🚀 Features
 
