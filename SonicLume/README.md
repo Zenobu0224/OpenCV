@@ -1,34 +1,43 @@
-# VoluGesture: AI-Powered Hand Volume Control
+# SonicLume 🖐️🔊💡
 
-**SonicLume** is a computer vision tool that allows you to control your system's master volume using hand gestures. By measuring the distance between your thumb and index finger, you can "slide" the volume up and down in real-time.
+**SonicLume** is an AI-powered system controller that transforms your hand gestures into hardware commands. Using Computer Vision, it maps the distance between your fingertips to system levels, allowing for a touchless "slider" experience.
 
-## 🚀 Features
+## 🛠️ Current Functionality
 
-* **Real-time Tracking:** Powered by MediaPipe for high-accuracy hand landmark detection.
-* **Visual UI:** Includes an on-screen volume bar and percentage indicator.
-* **Dynamic Feedback:** The tracker changes color based on volume levels (Green for Max, Red for Min).
-* **Modular Design:** Uses a custom `HandTrack` module that can be reused for other projects.
+The project uses a **Dual-Hand Logic** system to separate audio and visual controls:
 
----
-
-## 🛠️ How it Works
-
-The script calculates the **Euclidean Distance** between the tip of the thumb and the tip of the index finger.
-
-1. **Index Finger Tip:** Landmark #8
-2. **Thumb Tip:** Landmark #4
-3. **Distance Calculation:** Using `np.hypot(x2-x1, y2-y1)`
-
-The distance is then mapped from pixels to the system's decibel range (via `pycaw`) using linear interpolation.
+| Hand | Control Type | Status | Gesture |
+| --- | --- | --- | --- |
+| **Right Hand** | **System Volume** | ✅ Functional | Thumb-Index Pinch (Landmarks 4 & 8) |
+| **Left Hand** | **Screen Brightness** | 🚧 Coming Soon | Thumb-Index Pinch (Landmarks 4 & 8) |
 
 ---
 
-## 📦 Installation
+## 🚀 How It Works
 
-1. **Clone the repository:**
+1. **Detection:** The system uses `MediaPipe` to detect hand landmarks and identify "Handedness" (Left vs. Right).
+2. **Measurement:** It calculates the Euclidean distance () between the thumb tip and index tip.
+3. **Mapping:** This distance is interpolated to match system ranges:
+* **Volume:** Mapped to decibel levels using `pycaw`.
+* **Brightness:** Mapped to percentage (0-100%).
+
+
+
+---
+
+## 📂 Project Structure
+
+* `HandTrack.py`: A modular class that handles camera input, RGB conversion, and landmark extraction.
+* `main.py`: The main loop that processes the **Right Hand** logic for Volume control.
+* `requirements.txt`: List of necessary Python libraries.
+
+---
+
+## 🔧 Installation & Setup
+
+1. **Clone the repo:**
 ```bash
-git clone https://github.com/yourusername/VoluGesture.git
-cd VoluGesture
+git clone https://github.com/yourusername/SonicLume.git
 
 ```
 
@@ -40,7 +49,7 @@ pip install opencv-python mediapipe numpy pycaw
 ```
 
 
-3. **Run the application:**
+3. **Run the script:**
 ```bash
 python main.py
 
@@ -50,36 +59,24 @@ python main.py
 
 ---
 
-## 📂 Project Structure
+## 🗺️ Roadmap
 
-* `main.py`: The entry point for the volume control application.
-* `HandTrack.py`: A reusable class for hand detection and landmark positioning.
-* `README.md`: Project documentation.
-
----
-
-## 🎮 Usage
-
-1. Run the script and wait for the webcam window to open.
-2. Show your **Right Hand** to the camera.
-3. Bring your **Thumb** and **Index** finger together to lower the volume.
-4. Spread them apart to increase the volume.
-5. Press **Esc** to exit the program.
+* [x] High-accuracy hand tracking module.
+* [x] Right-hand Volume control integration.
+* [ ] Left-hand Brightness control integration (Planned).
+* [ ] Visual toggle for "Mute" using a fist gesture.
+* [ ] Support for dual-monitor brightness.
 
 ---
 
-## 📝 Requirements
+### Pro-Tip for your GitHub:
 
-* Python 3.x
-* Webcam
-* Windows OS (Required for `pycaw`)
+Since you mentioned the brightness is "to be implemented," you can leave a comment in your `main.py` code like this:
 
----
+```python
+# TODO: Implement Left Hand detection for Brightness
+# if label == "Left":
+#     brightness_val = np.interp(length, [35, 210], [0, 100])
+#     sbc.set_brightness(int(brightness_val))
 
-## 🤝 Contributing
-
-Feel free to fork this project and add features! I'm planning to add more gestures for different system controls (like brightness or media play/pause) soon.
-
----
-
-### Would you like me to help you write a similar README for your Subway Surfers gesture project?
+```
