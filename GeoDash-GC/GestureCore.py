@@ -16,6 +16,7 @@ class HandTrack():
                                          min_tracking_confidence=tracking_confidence)
         self.mp_draw = mp.solutions.drawing_utils
 
+
     def draw_landmarks(self, imgs, draw=True):
         img_rgb = cv.cvtColor(imgs, cv.COLOR_BGR2RGB)
         self.results = self.hands.process(img_rgb)
@@ -26,3 +27,21 @@ class HandTrack():
                     self.mp_draw.draw_landmarks(imgs, hand_landmarks, self.mp_hands.HAND_CONNECTIONS)
 
         return imgs
+    
+    
+    def get_landmarks(self, imgs):
+        landmark_list = []
+
+        if self.results.multi_hand_landmarks:
+            for hand_landmarks, handedness in zip(self.results.multi_hand_landmarks, self.results.multi_handedness):
+                label = handedness.classification[0].label
+
+                if label == 'Left':
+                    for id, lm in enumerate(hand_landmarks.landmark):
+                        (h, w, _) = imgs.shape
+
+                        cx, cy = int(lm.x*w), int(lm.y*h)
+
+                        landmark_list.append([id, cx, cy])
+
+        return landmark_list
