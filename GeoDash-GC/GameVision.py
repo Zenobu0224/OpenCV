@@ -28,9 +28,12 @@ while True:
         range = np.hypot(index_tip_x - thumb_tip_x, index_tip_y - thumb_tip_y)
 
         if range >= 80:
-            py
+            pyautogui.press('space')
+            cv.putText(imgs, 'JUMP', (30, 100), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
+        else:
+            cv.putText(imgs, 'STEADY', (30, 100), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
 
-
+    cv.putText(imgs, 'STEADY', (30, 100), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
     cv.imshow('Live Video', imgs)
 
     if cv.waitKey(1) & 0xFF==27:
