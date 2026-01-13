@@ -7,7 +7,7 @@ import time
 
 capture = cv.VideoCapture(0)
 
-hand_track = gc.HandTrack()
+hand_track = gc.HandTrack(detection_confidence=0.8)
 
 c_time = 0
 p_time = 0
@@ -31,16 +31,17 @@ while True:
 
         range = np.hypot(index_tip_x - thumb_tip_x, index_tip_y - thumb_tip_y)
 
-        # if range >= 80:
-        #     pyautogui.press('space')
-        #     cv.putText(imgs, 'JUMP', (30, 100), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
-        # else:
-        #     cv.putText(imgs, 'STEADY', (30, 100), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
+        if range >= 110:
+            pyautogui.press('space')
+            
 
     cv.putText(imgs, 'STEADY', (30, 100), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
 
+    c_time = time.time()
+    fps = 1 / (c_time - p_time)
+    p_time = c_time
 
-
+    cv.putText(imgs, f'FPS : {int(fps)}', (30, 50), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
     cv.imshow('Live Video', imgs)
 
     if cv.waitKey(1) & 0xFF==27:
