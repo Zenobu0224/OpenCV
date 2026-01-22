@@ -51,6 +51,11 @@ while True:
         # Display distance for debugging
         cv.putText(imgs, f'Distance: {int(distance)}', (30, 150), cv.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
 
+    # FPS calculation
+    c_time = time.time()
+    fps = 1 / (c_time - p_time) if (c_time - p_time) > 0 else 0
+    p_time = c_time
+
     cv.imshow('Geometry Dash Hand Controller', imgs)
 
     if cv.waitKey(1) & 0xFF == 27:
