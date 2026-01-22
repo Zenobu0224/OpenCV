@@ -33,7 +33,12 @@ while True:
     imgs = hand_track.track_hand(imgs, draw=True)
     landmarks = hand_track.landmark_position(imgs)
 
-    
+    if landmarks and len(landmarks) >= 9:
+        index_tip_x, index_tip_y = landmarks[8][1], landmarks[8][2]
+        thumb_tip_x, thumb_tip_y = landmarks[4][1], landmarks[4][2]
+
+        cv.circle(imgs, (index_tip_x, index_tip_y), 7, (0, 255, 0), -1)
+        cv.circle(imgs, (thumb_tip_x, thumb_tip_y), 7, (0, 255, 0), -1)
 
     cv.imshow('Geometry Dash Hand Controller', imgs)
 
