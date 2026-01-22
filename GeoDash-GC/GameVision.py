@@ -48,6 +48,9 @@ while True:
             last_press_time = current_time
             cv.putText(imgs, str('JUMP!'), (30, 100), cv.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
 
+        # Display distance for debugging
+        cv.putText(imgs, f'Distance: {int(distance)}', (30, 150), cv.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+
     cv.imshow('Geometry Dash Hand Controller', imgs)
 
     if cv.waitKey(1) & 0xFF == 27:
