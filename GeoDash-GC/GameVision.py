@@ -56,6 +56,9 @@ while True:
     fps = 1 / (c_time - p_time) if (c_time - p_time) > 0 else 0
     p_time = c_time
 
+    cv.putText(imgs, f'FPS: {int(fps)}', (30, 50), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
+    cv.putText(imgs, 'READY' if landmarks else 'NO HAND', (30, 50), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
+
     cv.imshow('Geometry Dash Hand Controller', imgs)
 
     if cv.waitKey(1) & 0xFF == 27:
