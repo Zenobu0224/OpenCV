@@ -40,6 +40,8 @@ while True:
         cv.circle(imgs, (index_tip_x, index_tip_y), 7, (0, 255, 0), -1)
         cv.circle(imgs, (thumb_tip_x, thumb_tip_y), 7, (0, 255, 0), -1)
 
+        distance = np.hypot(index_tip_x - thumb_tip_x, index_tip_y - thumb_tip_y)
+
     cv.imshow('Geometry Dash Hand Controller', imgs)
 
     if cv.waitKey(1) & 0xFF == 27:
