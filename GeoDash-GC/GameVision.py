@@ -42,6 +42,12 @@ while True:
 
         distance = np.hypot(index_tip_x - thumb_tip_x, index_tip_y - thumb_tip_y)
 
+        current_time = time.time()   
+        if distance > 60 and (current_time - last_press_time) > press_cooldown:
+            pyautogui.press('space')
+            last_press_time = current_time
+            cv.putText(imgs, str('JUMP!'), (30, 100), cv.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
+
     cv.imshow('Geometry Dash Hand Controller', imgs)
 
     if cv.waitKey(1) & 0xFF == 27:
