@@ -63,3 +63,6 @@ while True:
 
     if cv.waitKey(1) & 0xFF == 27:
         break
+
+capture.release()
+cv.destroyAllWindows()
