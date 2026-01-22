@@ -18,3 +18,19 @@ press_cooldown = 0.1  # Prevent spamming space bar
 
 # Disable pyautogui pause for faster execution
 pyautogui.PAUSE = 0
+
+
+while True:
+    successful, imgs = capture.read()
+
+    if not successful:
+        print('Capture Error')
+        break
+
+    # Flip for mirror effect (optional, makes it more intuitive)
+    imgs = cv.flip(imgs, 1)
+
+    cv.imshow('Geometry Dash Hand Controller', imgs)
+
+    if cv.waitKey(1) & 0xFF == 27:
+        break
