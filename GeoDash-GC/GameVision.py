@@ -46,10 +46,10 @@ while True:
         if distance > 60 and (current_time - last_press_time) > press_cooldown:
             pyautogui.press('space')
             last_press_time = current_time
-            cv.putText(imgs, str('JUMP!'), (30, 100), cv.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
+            cv.putText(imgs, str('JUMP!'), (30, 150), cv.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
 
         # Display distance for debugging
-        cv.putText(imgs, f'Distance: {int(distance)}', (30, 150), cv.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+        cv.putText(imgs, f'Distance: {int(distance)}', (30, 200), cv.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
 
     # FPS calculation
     c_time = time.time()
@@ -57,7 +57,7 @@ while True:
     p_time = c_time
 
     cv.putText(imgs, f'FPS: {int(fps)}', (30, 50), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
-    cv.putText(imgs, 'READY' if landmarks else 'NO HAND', (30, 50), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
+    cv.putText(imgs, 'READY' if landmarks else 'NO HAND', (30, 100), cv.FONT_HERSHEY_PLAIN, 2, (240, 5, 5), 3)
 
     cv.imshow('Geometry Dash Hand Controller', imgs)
 
