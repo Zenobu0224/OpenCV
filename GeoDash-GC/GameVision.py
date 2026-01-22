@@ -30,6 +30,11 @@ while True:
     # Flip for mirror effect (optional, makes it more intuitive)
     imgs = cv.flip(imgs, 1)
 
+    imgs = hand_track.track_hand(imgs, draw=True)
+    landmarks = hand_track.landmark_position(imgs)
+
+    
+
     cv.imshow('Geometry Dash Hand Controller', imgs)
 
     if cv.waitKey(1) & 0xFF == 27:
